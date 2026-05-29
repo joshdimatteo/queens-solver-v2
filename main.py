@@ -3,7 +3,7 @@ import solver
 from time import sleep
 
 # Create blank puzzle
-p = puzzle.Puzzle(5)
+p = puzzle.Puzzle(12, 0.05)
 s = solver.Solver(p)
 
 # Build and mark it

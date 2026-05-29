@@ -4,8 +4,9 @@ import numpy as np
 import pyautogui
 
 class Puzzle:
-    def __init__(self, size):
+    def __init__(self, size, speed=0.1):
         self.size = size
+        pyautogui.PAUSE = speed
 
         # The colors are IDs corresponding to colors stored in the color map.
         self.colors = np.zeros((size, size), dtype=int)

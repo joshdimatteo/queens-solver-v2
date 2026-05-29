@@ -51,7 +51,9 @@ class Puzzle:
     # Determines if the puzzle has the correct amount of queens
     def is_solved(self):
         unique, counts = np.unique(self.marks, return_counts=True)
-        return dict(zip(unique, counts))[2] == self.size
+        if 2 in unique:
+            return dict(zip(unique, counts))[2] == self.size
+        return False
 
     # Determines if the solution is valid
     # Only needs to validate colors because the queens automatically mark each other if in the same row/col

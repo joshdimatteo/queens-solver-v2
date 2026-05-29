@@ -5,6 +5,14 @@ class Solver:
     def __init__(self, puzzle: Puzzle):
         self.puzzle = puzzle
 
+    # Loops below methods to solve
+    def solve(self, cap=5):
+        count = 0
+        while not self.puzzle.is_solved() and count < cap:
+            self.color_line_search()
+            self.mark_line_search()
+            count += 1
+
     # Searches columns or rows for marks
     def mark_line_count(self, index, orient, mark):
         if orient.lower() == "x":
@@ -18,6 +26,15 @@ class Solver:
         if mark in unique:
             return dict(zip(unique, count))[mark]
         return 0
+
+    # Counts how much of a color remains
+    def color_count(self, color):
+        counter = 0
+        for row in range(self.puzzle.size):
+            for col in range(self.puzzle.size):
+                if self.puzzle.marks[row, col] == 0 and self.puzzle.colors[row, col] == color:
+                    counter += 1
+        return counter
 
 
 
@@ -80,7 +97,7 @@ class Solver:
 
             # If there is only one open spot, find it and place a queen
             if mark_count == 1:
-                print(f"[ ] Found: {np.where(self.puzzle.marks[col] == 0)[0][0]}, {col}")
+                print(f"[ ] Found: {np.where(self.puzzle.marks[:, col] == 0)[0][0]}, {col}")
                 self.puzzle.mark((col, np.where(self.puzzle.marks[:, col] == 0)[0][0]), 2)
 
             # If there are two open spots
@@ -118,3 +135,40 @@ class Solver:
                         self.puzzle.mark((n + 1, col - 1), 1)
 
     # Type 2: Searching colors
+
+    # 1. Searches for if a color is entirely contained in a single line
+    def color_line_search(self):
+
+        # Check each color
+        for color_id in range(self.puzzle.size):
+            total = self.color_count(color_id)
+
+            # Check each row
+            for row in range(self.puzzle.size):
+                row_counter = 0
+
+                for col in range(self.puzzle.size):
+                    if self.puzzle.colors[row, col] == color_id and self.puzzle.marks[row, col] == 0:
+                        row_counter += 1
+
+                if row_counter == total != 0:
+                    print(f"Row Found: {row}")
+
+                    for col in range(self.puzzle.size):
+                        if self.puzzle.colors[row, col] != color_id:
+                            self.puzzle.mark((row, col), 1)
+
+            # Check each column
+            for col in range(self.puzzle.size):
+                col_counter = 0
+
+                for row in range(self.puzzle.size):
+                    if self.puzzle.colors[row, col] == color_id and self.puzzle.marks[row, col] == 0:
+                        col_counter += 1
+
+                if col_counter == total != 0:
+                    print(f"Column Found: {col}")
+
+                    for row in range(self.puzzle.size):
+                        if self.puzzle.colors[row, col] != color_id:
+                            self.puzzle.mark((row, col), 1)

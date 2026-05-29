@@ -1,16 +1,26 @@
-# This is a sample Python script.
+import puzzle
+from time import sleep
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Create blank puzzle
+p = puzzle.Puzzle(5)
+print(p.marks, end="\n\n")
 
+# Build and mark it
+p.build((690, 335), (1205, 850))
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+print(p.colors, end="\n\n")
 
+p.mark((1, 0), 2)
+p.mark((4, 1), 2)
+p.mark((3, 4), 2)
+p.mark((0, 3), 2)
+p.mark((2, 2), 2)
+print(p.marks, end="\n\n")
+print(p.is_solved())
+print(p.is_valid())
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Bounds:
+# Top Left: (690, 335)
+# Bottom Right: (1205, 850)
+# p.build((690, 335), (1205, 850))
+# p.apply((690, 335), (1205, 850))

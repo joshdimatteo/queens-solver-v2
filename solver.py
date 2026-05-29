@@ -65,9 +65,9 @@ class Solver:
             # If there are 3 open spots
             elif mark_count == 3:
 
-                # Iterate over the row and check for [ ] [] [ ]
+                # Iterate over the row and check for [ ] [ ] [ ]
                 for n in range(self.puzzle.size - 2):
-                    if self.puzzle.marks[row, n] + + self.puzzle.marks[row, n+1] + self.puzzle.marks[row, n + 2] == 0:
+                    if self.puzzle.marks[row, n] + + self.puzzle.marks[row, n+1] + self.puzzle.marks[row, n+2] == 0:
                         print(f"[ ] [ ] [ ] Found: {row}, {n}")
 
                         # Marks spots to the sides
@@ -99,7 +99,19 @@ class Solver:
                 # Iterate over the row and check for [ ] [x] [ ]
                 for n in range(self.puzzle.size - 2):
                     if self.puzzle.marks[n, col] + self.puzzle.marks[n+2, col] == 0:
-                        print(f"[ ] [x] [ ] Found: {n}, {col}")
+                        print(f"[ ] [x] [ ] Vertical Found: {n}, {col}")
+
+                        # Marks spots to the sides
+                        self.puzzle.mark((n + 1, col + 1), 1)
+                        self.puzzle.mark((n + 1, col - 1), 1)
+
+            # If there are 3 open spots
+            elif mark_count == 3:
+
+                # Iterate over the row and check for [ ] [ ] [ ]
+                for n in range(self.puzzle.size - 2):
+                    if self.puzzle.marks[n, col] + self.puzzle.marks[n+1, col] + self.puzzle.marks[n+2, col] == 0:
+                        print(f"[ ] [ ] [ ] Vertical Found: {n}, {col}")
 
                         # Marks spots to the sides
                         self.puzzle.mark((n + 1, col + 1), 1)

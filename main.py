@@ -10,8 +10,8 @@ s = solver.Solver(p)
 # p.build((690, 335), (1205, 850))
 
 p.mark((0, 0), 1)
-p.mark((0, 1), 1)
-p.mark((0, 3), 1)
+p.mark((1, 0), 1)
+p.mark((2, 0), 1)
 print("Marks:")
 print(p.marks, end="\n\n")
 

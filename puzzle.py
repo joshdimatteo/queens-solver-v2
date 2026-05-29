@@ -15,6 +15,11 @@ class Puzzle:
         self.marks = np.zeros((size, size), dtype=int)
 
     def mark(self, loc, mark):
+
+        # If the mark is outside of bounds, disregard it.
+        if not 0 <= loc[0] < self.size or not 0 <= loc[1] < self.size:
+            return
+
         if mark == 0 or mark == 1:
             self.marks[loc] = mark
         elif mark == 2:
@@ -67,6 +72,7 @@ class Puzzle:
 
             # Check if each color has the same value
             return len(set(queens.values())) == 1 and queens[0] == 1
+        return False
 
     # Scans screen to populate self.colors
     def build(self, start, end):
